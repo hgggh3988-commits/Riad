@@ -11,6 +11,7 @@
             font-family: 'Tajawal', sans-serif;
             margin: 0;
             padding: 0;
+            transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
         body {
@@ -22,6 +23,79 @@
             align-items: center;
             overflow-x: hidden;
             position: relative;
+        }
+
+        /* الوضع الليلي - Dark Mode مع توهج بينك مشع */
+        body.dark-mode {
+            background: linear-gradient(135deg, #0d050e, #1a091a);
+            color: #ffb6c1;
+        }
+
+        body.dark-mode .container {
+            background: rgba(20, 8, 22, 0.9);
+            border-color: #ff2a75;
+            box-shadow: 0 0 25px rgba(255, 42, 117, 0.6), inset 0 0 15px rgba(255, 42, 117, 0.2);
+        }
+
+        body.dark-mode h1, 
+        body.dark-mode h2, 
+        body.dark-mode .song-title, 
+        body.dark-mode .photo-caption, 
+        body.dark-mode .timer-title, 
+        body.dark-mode .modal-content h3 {
+            color: #ff66a3 !important;
+            text-shadow: 0 0 8px rgba(255, 102, 163, 0.6);
+        }
+
+        body.dark-mode .caption {
+            color: #e0b0c8;
+        }
+
+        body.dark-mode .photo-card, 
+        body.dark-mode .music-card, 
+        body.dark-mode .modal-content, 
+        body.dark-mode .timer-box {
+            background: #190a1c;
+            border-color: #ff3385 !important;
+            box-shadow: 0 0 15px rgba(255, 51, 133, 0.4);
+        }
+
+        body.dark-mode input[type="password"] {
+            background: #230d28;
+            color: #fff;
+            border-color: #ff3385;
+            box-shadow: 0 0 10px rgba(255, 51, 133, 0.3);
+        }
+
+        body.dark-mode button {
+            background: linear-gradient(45deg, #ff2a75, #ff66a3);
+            box-shadow: 0 0 15px rgba(255, 42, 117, 0.6);
+        }
+
+        /* زرار التبديل للدارك مود */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 999;
+            background: rgba(255, 255, 255, 0.85);
+            color: #d63384;
+            border: 2px solid #ffb6c1;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        body.dark-mode .theme-toggle-btn {
+            background: #230d28;
+            color: #ff85a2;
+            border-color: #ff3385;
+            box-shadow: 0 0 10px rgba(255, 51, 133, 0.5);
         }
 
         /* القلوب الطائرة في الخلفية */
@@ -82,7 +156,6 @@
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(255, 107, 129, 0.4);
-            transition: 0.3s;
         }
 
         button:hover {
@@ -105,6 +178,57 @@
             color: #6c757d;
             margin-bottom: 20px;
             line-height: 1.6;
+        }
+
+        /* كارت عداد الوقت */
+        .timer-card {
+            background: #fff0f3;
+            padding: 15px;
+            border-radius: 18px;
+            border: 1px dashed #ff85a2;
+            margin-bottom: 25px;
+        }
+
+        .timer-title {
+            font-weight: bold;
+            color: #d63384;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .timer-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .timer-box {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ffb6c1;
+            padding: 8px 10px;
+            border-radius: 12px;
+            min-width: 60px;
+            flex: 1;
+        }
+
+        .timer-num {
+            font-size: 18px;
+            font-weight: bold;
+            color: #d63384;
+        }
+
+        body.dark-mode .timer-num {
+            color: #ff66a3;
+        }
+
+        .timer-label {
+            font-size: 11px;
+            color: #777;
+        }
+
+        body.dark-mode .timer-label {
+            color: #d0a0b8;
         }
 
         /* مشغل الأغنية */
@@ -190,6 +314,9 @@
 </head>
 <body>
 
+    <!-- زرار زرار الدارك مود -->
+    <button class="theme-toggle-btn" onclick="toggleDarkMode()" id="themeBtn">🌙 Dark</button>
+
     <!-- صفحة الباسورد -->
     <div class="container" id="login-screen">
         <h2>🩷BaNotY🩷</h2>
@@ -204,6 +331,20 @@
     <div class="container" id="main-content">
         <!-- العنوان والمقدمة -->
         <h1>🩷2026/09/16🩷</h1>
+        
+        <!-- العداد الحسابي -->
+        <div class="timer-card">
+            <div class="timer-title">بقالنا مع بعض🩷✨</div>
+            <div class="timer-grid">
+                <div class="timer-box"><div class="timer-num" id="years">0</div><div class="timer-label">سنة</div></div>
+                <div class="timer-box"><div class="timer-num" id="months">0</div><div class="timer-label">شهر</div></div>
+                <div class="timer-box"><div class="timer-num" id="days">0</div><div class="timer-label">يوم</div></div>
+                <div class="timer-box"><div class="timer-num" id="hours">0</div><div class="timer-label">ساعة</div></div>
+                <div class="timer-box"><div class="timer-num" id="minutes">0</div><div class="timer-label">دقيقة</div></div>
+                <div class="timer-box"><div class="timer-num" id="seconds">0</div><div class="timer-label">ثانية</div></div>
+            </div>
+        </div>
+
         <p class="caption">عملتلك المكان اللطيف ده عشان أقولك أد إيه انتِ حاجة خاصة جداً في حياتي 💕</p>
 
         <!-- الأغنية -->
@@ -247,16 +388,16 @@
             <span class="close-btn" onclick="closeNote()">&times;</span>
             <h3 style="color: #d63384; margin-bottom: 10px;">To my soul 📝❤️</h3>
             <p style="line-height: 1.6; color: #444;">
-                بصي بقا 🩷✨
-بقالنا فتره صغنن مع بعض بس بقينا اقرب اتنين لبعض و دخلنا قلب بعض بسرعه عشان شبه بعض في كل حاجه و زي بعض ف كل حاجه و دخلتي قلبي بجد 🩷✨
-يارب دايما مع بعض يصغنن و دائماً مبسوطين سوا ✨🩷
-RT07🩷✨
+                بصي بقا 🩷✨<br>
+                بقالنا فتره صغنن مع بعض بس بقينا اقرب اتنين لبعض و دخلنا قلب بعض بسرعه عشان شبه بعض في كل حاجه و زي بعض ف كل حاجه و دخلتي قلبي بجد 🩷✨<br>
+                يارب دايما مع بعض يصغنن و دائماً مبسوطين سوا ✨🩷<br>
+                RT07🩷✨
             </p>
         </div>
     </div>
 
     <script>
-        // 1. تغيير كلمة السر هنا (غير M♡R للباسورد اللي تحبه)
+        // 1. كلمة السر
         const PASSWORD = "M♡R";
 
         function checkPassword() {
@@ -264,6 +405,7 @@ RT07🩷✨
             if (input === PASSWORD) {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
+                startTimer(); // بدء العداد فور الدخول
             } else {
                 document.getElementById('error-msg').style.display = 'block';
             }
@@ -290,7 +432,60 @@ RT07🩷✨
             document.getElementById('noteModal').style.display = 'none';
         }
 
-        // 4. إنشاء القلوب الطائرة بالخلفية
+        // 4. الوضع الليلي (Dark Mode)
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const themeBtn = document.getElementById('themeBtn');
+            if (document.body.classList.contains('dark-mode')) {
+                themeBtn.innerHTML = "☀️ Light";
+            } else {
+                themeBtn.innerHTML = "🌙 Dark";
+            }
+        }
+
+        // 5. حساب الوقت (العداد الحقيقي)
+        const startDate = new Date('2026-09-16T00:00:00');
+
+        function updateTimer() {
+            const now = new Date();
+            let diff = now - startDate;
+
+            if (diff < 0) diff = 0; // حماية لو التاريخ في المستقبل
+
+            const seconds = Math.floor((diff / 1000) % 60);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            
+            // حساب دقيق للأيام والشهور والسنين
+            let years = now.getFullYear() - startDate.getFullYear();
+            let months = now.getMonth() - startDate.getMonth();
+            let days = now.getDate() - startDate.getDate();
+
+            if (days < 0) {
+                months--;
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            document.getElementById('years').innerText = years < 0 ? 0 : years;
+            document.getElementById('months').innerText = months < 0 ? 0 : months;
+            document.getElementById('days').innerText = days < 0 ? 0 : days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+        }
+
+        function startTimer() {
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+
+        // 6. إنشاء القلوب الطائرة بالخلفية
         function createHearts() {
             const heart = document.createElement('div');
             heart.classList.add('heart-bg');
